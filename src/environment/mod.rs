@@ -2,21 +2,27 @@ use crate::agent::Agent;
 use crate::particle::Particle;
 use crate::types::Vector3;
 
-pub struct Environment;
+pub struct Environment {
+    term: usize,
+}
 
 const GRAVITY: f32 = 9.8; // [m/sec^2]
 const MAX_TIME: f32 = 1000.; // [sec]
 const END_POINT: f32 = 0.; // [0]
 
 impl Environment {
-    pub fn learn(&self, agent: &mut Agent) {
-        for _ in 0..1 {
-            self.learn_one_term(agent);
+    pub fn new() -> Self {
+        Self { term: 0 }
+    }
+
+    pub fn learn(&mut self, agent: &mut Agent) {
+        for i in 0..1 {
+            self.learn_one_term(i, agent);
             agent.update();
         }
     }
 
-    pub fn learn_one_term(&self, agent: &mut Agent) {
+    pub fn learn_one_term(&self, term: usize, agent: &mut Agent) {
         let accel = Vector3::new(0., -GRAVITY, 0.); // [m/sec^2]
         let velocity = Vector3::zeros(); // [m/s]
         let position = Vector3::new(0., 1., 0.); // [m]
@@ -39,7 +45,7 @@ impl Environment {
             p.time_evolution(t);
             t += step;
         }
-        agent.set_reward(self.calculate_reward(&p.velocity));
+        agent.set_reward(term, self.calculate_reward(&p.velocity));
     }
 
     pub fn calculate_reward(&self, v: &Vector3) -> f32 {

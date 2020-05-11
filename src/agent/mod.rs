@@ -2,6 +2,8 @@ pub struct Agent {
     q_values: Vec<Qvalue>,
     triger: f32,
     action: bool,
+    eta: f32,   // NOTE: learning ratio
+    gamma: f32, // NOTE: discount ratio
 }
 
 impl Agent {
@@ -10,6 +12,8 @@ impl Agent {
             q_values: vec![],
             triger: 100.,
             action: false,
+            eta: 0.1,
+            gamma: 1.0,
         }
     }
 
@@ -20,7 +24,12 @@ impl Agent {
         self.action
     }
 
-    pub fn set_reward(&mut self, reward: f32) {
+    pub fn set_reward(&mut self, term: usize, reward: f32) {
+        // for i in (0..term + 1).rev() {
+        //     let reward = self.eta * reward * self.gamma.powi((term - i) as i32);
+        //     self.q_values.push(Qvalue::new(self.triger, reward));
+        // }
+        let reward = self.eta * reward * self.gamma.powi(term as i32);
         self.q_values.push(Qvalue::new(self.triger, reward));
     }
 

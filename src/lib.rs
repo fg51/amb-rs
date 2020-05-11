@@ -10,7 +10,7 @@ mod rk4th;
 mod types;
 
 pub fn learn() {
-    let env = Environment;
+    let mut env = Environment::new();
     let mut agent = Agent::new();
     env.learn(&mut agent);
 }
