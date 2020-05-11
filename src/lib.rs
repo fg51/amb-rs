@@ -1,8 +1,19 @@
+mod agent;
+use agent::Agent;
+
+mod environment;
+use environment::Environment;
+
 mod particle;
-pub use particle::Particle;
 
 mod rk4th;
-pub mod types;
+mod types;
+
+pub fn learn() {
+    let env = Environment;
+    let mut agent = Agent::new();
+    env.learn(&mut agent);
+}
 
 #[cfg(test)]
 mod tests {

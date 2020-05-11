@@ -35,6 +35,10 @@ impl Particle {
         self.position += dp;
         self.velocity += dv;
     }
+
+    pub fn set_action(&mut self, action: bool) {
+        self.is_retrofire = action;
+    }
 }
 
 impl RungeKutta4th for Particle {
