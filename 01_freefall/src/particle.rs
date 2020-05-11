@@ -33,6 +33,6 @@ impl RungeKutta4th for Particle {
     }
 
     fn to_accel(&self, _: f32, _: &Vector3, _: &Vector3) -> Vector3 {
-        return self.accel;
+        return self.accel.clone();
     }
 }

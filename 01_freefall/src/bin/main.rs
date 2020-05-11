@@ -1,4 +1,4 @@
-extern crate amb_rs as lib;
+extern crate freefall as lib;
 
 use lib::{types::Vector3, Particle};
 
