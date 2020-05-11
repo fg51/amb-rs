@@ -1,7 +1,8 @@
-mod rk4th;
-
 mod particle;
 pub use particle::Particle;
+
+mod rk4th;
+pub mod types;
 
 #[cfg(test)]
 mod tests {

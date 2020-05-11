@@ -1,16 +1,16 @@
 extern crate amb_rs as lib;
 
-use lib::Particle;
+use lib::{types::Vector3, Particle};
 
 const GRAVITY: f32 = 9.8; // [m/sec^2]
 
 pub fn main() {
-    let gravity = -GRAVITY; // [m/sec^2]
-    let velocity = 0.; // [m/s]
-    let position = 1.; // [m]
+    let accel = Vector3::new(0., -GRAVITY, 0.); // [m/sec^2]
+    let velocity = Vector3::zeros(); // [m/s]
+    let position = Vector3::new(0., 1., 0.); // [m]
     let step = 1E-3; // [sec]
 
-    let mut p = Particle::new(step, gravity, velocity, position);
+    let mut p = Particle::new(step, accel, velocity, position);
 
     println!(
         "t: {}, a: {}, v: {}, p: {}\n",
@@ -18,8 +18,11 @@ pub fn main() {
     );
     let mut t = 0.;
     loop {
-        print!("{}, {}, {}, {} \n", t, p.accel, p.velocity, p.position);
-        if p.position <= 0. {
+        print!(
+            "{}, {}, {}, {} \n",
+            t, p.accel.y, p.velocity.y, p.position.y
+        );
+        if p.position.y <= 0. {
             break;
         }
         p.time_evolution(t);
