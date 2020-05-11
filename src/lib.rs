@@ -1,5 +1,7 @@
 mod rk4th;
-pub use rk4th::RungeKutta4th;
+
+mod particle;
+pub use particle::Particle;
 
 #[cfg(test)]
 mod tests {
