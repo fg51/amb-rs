@@ -26,11 +26,20 @@ impl Agent {
 
     pub fn set_reward(&mut self, term: usize, reward: f32) {
         // for i in (0..term + 1).rev() {
-        //     let reward = self.eta * reward * self.gamma.powi((term - i) as i32);
+        // let discount = self.gamma.powi(term - i);
+        //     let q = self.eta * reward * discount;
         //     self.q_values.push(Qvalue::new(self.triger, reward));
         // }
-        let reward = self.eta * reward * self.gamma.powi(term as i32);
-        self.q_values.push(Qvalue::new(self.triger, reward));
+        let q = {
+            // let discount = self.gamma.powi(term as i32);
+            let discount = 1.0;
+            self.eta * reward * discount
+        };
+        self.q_values.push(Qvalue::new(self.triger, q));
+        // for i in 0..term + 1 {
+        //     let discount = self.gamma.powi((term - i) as i32);
+        //     self.q_values[i].q_value += self.eta * reward * discount;
+        // }
     }
 
     pub fn update(&mut self) {
